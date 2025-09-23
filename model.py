@@ -39,14 +39,14 @@ class CropRecommendationSystem:
         
         # Define crop requirements (realistic agricultural data)
         crop_profiles = {
-            'Rice': {'N': (120, 150), 'P': (60, 80), 'K': (40, 60), 'pH': (6.0, 7.0), 'moisture': (80, 95), 'temp': (22, 30)},
-            'Wheat': {'N': (100, 130), 'P': (50, 70), 'K': (30, 50), 'pH': (6.5, 7.5), 'moisture': (50, 70), 'temp': (15, 25)},
-            'Corn': {'N': (150, 200), 'P': (70, 90), 'K': (60, 80), 'pH': (6.0, 7.0), 'moisture': (60, 80), 'temp': (20, 30)},
-            'Cotton': {'N': (120, 180), 'P': (50, 80), 'K': (80, 120), 'pH': (5.5, 8.0), 'moisture': (50, 80), 'temp': (25, 35)},
-            'Soybean': {'N': (80, 120), 'P': (60, 90), 'K': (70, 100), 'pH': (6.0, 7.5), 'moisture': (60, 85), 'temp': (20, 30)},
-            'Sugarcane': {'N': (200, 300), 'P': (80, 120), 'K': (150, 250), 'pH': (6.0, 8.0), 'moisture': (75, 95), 'temp': (25, 35)},
-            'Potato': {'N': (150, 200), 'P': (80, 120), 'K': (200, 300), 'pH': (5.5, 6.5), 'moisture': (70, 90), 'temp': (15, 25)},
-            'Tomato': {'N': (120, 180), 'P': (100, 150), 'K': (180, 250), 'pH': (6.0, 7.0), 'moisture': (70, 85), 'temp': (20, 30)}
+            'Rice': {'N': (120, 150), 'P': (60, 80), 'K': (40, 60), 'pH': (6.0, 7.0), 'moisture': (80, 95), 'temp': (22, 30), 'rainfall': (1200, 2500), 'humidity': (75, 90)},
+            'Wheat': {'N': (100, 130), 'P': (50, 70), 'K': (30, 50), 'pH': (6.5, 7.5), 'moisture': (50, 70), 'temp': (15, 25), 'rainfall': (400, 800), 'humidity': (50, 70)},
+            'Corn': {'N': (150, 200), 'P': (70, 90), 'K': (60, 80), 'pH': (6.0, 7.0), 'moisture': (60, 80), 'temp': (20, 30), 'rainfall': (600, 1200), 'humidity': (60, 80)},
+            'Cotton': {'N': (120, 180), 'P': (50, 80), 'K': (80, 120), 'pH': (5.5, 8.0), 'moisture': (50, 80), 'temp': (25, 35), 'rainfall': (500, 1000), 'humidity': (55, 75)},
+            'Soybean': {'N': (80, 120), 'P': (60, 90), 'K': (70, 100), 'pH': (6.0, 7.5), 'moisture': (60, 85), 'temp': (20, 30), 'rainfall': (500, 1000), 'humidity': (60, 80)},
+            'Sugarcane': {'N': (200, 300), 'P': (80, 120), 'K': (150, 250), 'pH': (6.0, 8.0), 'moisture': (75, 95), 'temp': (25, 35), 'rainfall': (1200, 2000), 'humidity': (70, 85)},
+            'Potato': {'N': (150, 200), 'P': (80, 120), 'K': (200, 300), 'pH': (5.5, 6.5), 'moisture': (70, 90), 'temp': (15, 25), 'rainfall': (400, 800), 'humidity': (65, 80)},
+            'Tomato': {'N': (120, 180), 'P': (100, 150), 'K': (180, 250), 'pH': (6.0, 7.0), 'moisture': (70, 85), 'temp': (20, 30), 'rainfall': (600, 1200), 'humidity': (65, 80)}
         }
         
         seasons = ['Kharif', 'Rabi', 'Zaid', 'Annual']
@@ -65,6 +65,8 @@ class CropRecommendationSystem:
                     'pH': np.random.normal(np.mean(requirements['pH']), 0.3),
                     'Moisture (%)': np.random.normal(np.mean(requirements['moisture']), 8),
                     'Temp (°C)': np.random.normal(np.mean(requirements['temp']), 3),
+                    'Rainfall (mm)': np.random.normal(np.mean(requirements['rainfall']), 150),
+                    'Humidity (%)': np.random.normal(np.mean(requirements['humidity']), 5),
                     'Crop Name': crop  # This is now our target variable
                 }
                 
@@ -75,6 +77,8 @@ class CropRecommendationSystem:
                 sample['pH'] = np.clip(sample['pH'], 4.5, 9.0)
                 sample['Moisture (%)'] = np.clip(sample['Moisture (%)'], 20, 100)
                 sample['Temp (°C)'] = np.clip(sample['Temp (°C)'], 10, 45)
+                sample['Rainfall (mm)'] = np.clip(sample['Rainfall (mm)'], 200, 3000)
+                sample['Humidity (%)'] = np.clip(sample['Humidity (%)'], 30, 95)
                 
                 data.append(sample)
         
@@ -88,7 +92,7 @@ class CropRecommendationSystem:
         df = df.copy()
         
         # Handle missing values
-        numeric_columns = ['N (kg/ha)', 'P (kg/ha)', 'K (kg/ha)', 'pH', 'Moisture (%)', 'Temp (°C)']
+        numeric_columns = ['N (kg/ha)', 'P (kg/ha)', 'K (kg/ha)', 'pH', 'Moisture (%)', 'Temp (°C)', 'Rainfall (mm)', 'Humidity (%)']
         for col in numeric_columns:
             if col in df.columns:
                 df[col] = pd.to_numeric(df[col], errors='coerce')
@@ -109,7 +113,7 @@ class CropRecommendationSystem:
         train_start = time.time()
         
         # Prepare features (everything except crop name) and target (crop name)
-        feature_cols = ['Season', 'N (kg/ha)', 'P (kg/ha)', 'K (kg/ha)', 'pH', 'Moisture (%)', 'Temp (°C)']
+        feature_cols = ['Season', 'N (kg/ha)', 'P (kg/ha)', 'K (kg/ha)', 'pH', 'Moisture (%)', 'Temp (°C)', 'Rainfall (mm)', 'Humidity (%)']
         available_features = [col for col in feature_cols if col in df.columns]
         
         X = df[available_features]
@@ -440,7 +444,9 @@ class CropRecommendationSystem:
             'K (kg/ha)': (50, 150, "Potassium levels"),
             'pH': (6.0, 7.5, "Soil pH"),
             'Moisture (%)': (60, 85, "Moisture content"),
-            'Temp (°C)': (20, 30, "Temperature")
+            'Temp (°C)': (20, 30, "Temperature"),
+            'Rainfall (mm)': (600, 1500, "Rainfall"),
+            'Humidity (%)': (60, 80, "Humidity")
         }
         
         for param, value in conditions.items():
@@ -545,7 +551,9 @@ if __name__ == "__main__":
         'K (kg/ha)': 164,
         'pH': 7.0,
         'Moisture (%)': 80,
-        'Temp (°C)': 31
+        'Temp (°C)': 31,
+        'Rainfall (mm)': 1200,
+        'Humidity (%)': 75
     }
     
     print(f"Input conditions: {test_conditions}")
