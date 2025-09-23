@@ -545,15 +545,15 @@ if __name__ == "__main__":
     print("="*40)
     
     test_conditions = {
-        'Season': 'Kharif',
-        'N (kg/ha)': 270,
-        'P (kg/ha)': 82,
-        'K (kg/ha)': 164,
-        'pH': 7.0,
-        'Moisture (%)': 80,
-        'Temp (°C)': 31,
-        'Rainfall (mm)': 1200,
-        'Humidity (%)': 75
+        "Season": "Kharif",
+        "N (kg/ha)": 270,
+        "P (kg/ha)": 82,
+        "K (kg/ha)": 164,
+        "pH": 7.0,
+        "Moisture (%)": 80,
+        "Temp (°C)": 31,
+        "Rainfall (mm)": 1200,
+        "Humidity (%)": 75
     }
     
     print(f"Input conditions: {test_conditions}")
