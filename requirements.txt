@@ -1,9 +1,0 @@
-pandas
-scikit-learn
-joblib
-gtts
-speechrecognition
-googletrans==4.0.0-rc1
-pygame
-
-# pip install -r  requirements.txt
