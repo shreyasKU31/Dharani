@@ -5,8 +5,8 @@ from google.cloud import storage
 
 # --- Global variables (loaded once per function instance) ---
 # ⚠️ Make sure to change this to your actual bucket name!
-MODEL_BUCKET = "YOUR_BUCKET_NAME_HERE"
-MODEL_FILE = "model.joblib"
+MODEL_BUCKET = "dharani_model"
+MODEL_FILE = "dharani.joblib"
 LOCAL_MODEL_PATH = f"/tmp/{MODEL_FILE}"
 
 # Download and load the model from Cloud Storage
