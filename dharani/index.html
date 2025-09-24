@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dharani - Sensor Monitor</title>
+    <style>
+      /* Your existing CSS remains unchanged */
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Helvetica, Arial, sans-serif;
+        display: grid;
+        place-content: center;
+        min-height: 100vh;
+        background-color: #f0f2f5;
+        color: #333;
+        margin: 0;
+      }
+      .container {
+        background-color: #ffffff;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        width: 380px; /* Slightly wider for new data */
+      }
+      h1 {
+        margin-top: 0;
+        color: #1a202c;
+      }
+      .data-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        margin: 2rem 0;
+        text-align: left;
+      }
+      .data-point {
+        background-color: #f7fafc;
+        padding: 0.8rem;
+        border-radius: 8px;
+        border: 1px solid #e2e8f0;
+      }
+      .data-point .label {
+        font-size: 0.9rem;
+        color: #718096;
+        display: block;
+      }
+      .data-point .value {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #2d3748;
+      }
+      button {
+        background-color: #4299e1;
+        color: white;
+        border: none;
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+        font-weight: 500;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.2s, opacity 0.2s;
+      }
+      button:hover {
+        background-color: #3182ce;
+      }
+      button:disabled {
+        background-color: #a0aec0;
+        cursor: not-allowed;
+      }
+      .location-info {
+        margin-top: 1.5rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid #e2e8f0;
+        font-size: 0.9rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Sensor Data Monitor 🌿</h1>
+      <div class="data-grid">
+        <div class="data-point">
+          <span class="label">Nitrogen (N)</span>
+          <span class="value" id="n-value">--</span>
+        </div>
+        <div class="data-point">
+          <span class="label">Phosphorus (P)</span>
+          <span class="value" id="p-value">--</span>
+        </div>
+        <div class="data-point">
+          <span class="label">Potassium (K)</span>
+          <span class="value" id="k-value">--</span>
+        </div>
+        <div class="data-point">
+          <span class="label">Soil pH</span>
+          <span class="value" id="ph-value">--</span>
+        </div>
+        <div class="data-point">
+          <span class="label">Avg. Humidity</span>
+          <span class="value" id="humidity-value">--</span>
+        </div>
+        <div class="data-point">
+          <span class="label">Avg. Temp</span>
+          <span class="value" id="temp-value">--</span>
+        </div>
+        <div class="data-point">
+          <span class="label">Avg. Monsoon Rain</span>
+          <span class="value" id="rainfall-value">--</span>
+        </div>
+        <div class="data-point">
+          <span class="label">Crop Season</span>
+          <span class="value" id="season-value">--</span>
+        </div>
+      </div>
+
+      <div class="location-info">
+        <h3>Your Location</h3>
+        <p>
+          Lat: <span id="lat">--</span> | Lng: <span id="lng">--</span> |
+          Source: <span id="source">-</span>
+        </p>
+        <p>
+          <b>Status:</b> <span id="status">Ready. Click button to start.</span>
+        </p>
+      </div>
+
+      <button id="receiveDataBtn">Get Latest Data</button>
+    </div>
+
+    <script src="./main.js" type="module"></script>
+  </body>
+</html>
