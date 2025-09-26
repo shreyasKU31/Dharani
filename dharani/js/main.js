@@ -1,6 +1,6 @@
 import * as api from "./api.js";
 import * as ui from "./ui.js";
-import * as utils from "../copyDharani/js/utils.js";
+import * as utils from "./utils.js";
 
 async function handleGetPrediction() {
   try {
