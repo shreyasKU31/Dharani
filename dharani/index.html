@@ -3,9 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dharani - Sensor Monitor</title>
+    <title>Dharani - Crop Advisor</title>
     <style>
-      /* Your existing CSS remains unchanged */
       body {
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
           Helvetica, Arial, sans-serif;
@@ -22,7 +21,7 @@
         border-radius: 12px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         text-align: center;
-        width: 380px; /* Slightly wider for new data */
+        width: 380px;
       }
       h1 {
         margin-top: 0;
@@ -69,50 +68,65 @@
         background-color: #a0aec0;
         cursor: not-allowed;
       }
-      .location-info {
+      .location-info,
+      .prediction-result {
         margin-top: 1.5rem;
         padding-top: 1.5rem;
         border-top: 1px solid #e2e8f0;
         font-size: 0.9rem;
       }
+      .prediction-result h2 {
+        margin: 0 0 0.5rem 0;
+        color: #4a5568;
+      }
+      .prediction-result .crop-name {
+        font-size: 2.2rem;
+        font-weight: bold;
+        color: #2f855a;
+      }
     </style>
   </head>
   <body>
     <div class="container">
-      <h1>Sensor Data Monitor 🌿</h1>
+      <h1>Dharani Crop Advisor 🌿</h1>
       <div class="data-grid">
         <div class="data-point">
-          <span class="label">Nitrogen (N)</span>
-          <span class="value" id="n-value">--</span>
+          <span class="label">Nitrogen (N)</span
+          ><span class="value" id="n-value">--</span>
         </div>
         <div class="data-point">
-          <span class="label">Phosphorus (P)</span>
-          <span class="value" id="p-value">--</span>
+          <span class="label">Phosphorus (P)</span
+          ><span class="value" id="p-value">--</span>
         </div>
         <div class="data-point">
-          <span class="label">Potassium (K)</span>
-          <span class="value" id="k-value">--</span>
+          <span class="label">Potassium (K)</span
+          ><span class="value" id="k-value">--</span>
         </div>
         <div class="data-point">
-          <span class="label">Soil pH</span>
-          <span class="value" id="ph-value">--</span>
+          <span class="label">Soil pH</span
+          ><span class="value" id="ph-value">--</span>
         </div>
         <div class="data-point">
-          <span class="label">Avg. Humidity</span>
-          <span class="value" id="humidity-value">--</span>
+          <span class="label">Avg. Humidity</span
+          ><span class="value" id="humidity-value">--</span>
         </div>
         <div class="data-point">
-          <span class="label">Avg. Temp</span>
-          <span class="value" id="temp-value">--</span>
+          <span class="label">Avg. Temp</span
+          ><span class="value" id="temp-value">--</span>
         </div>
         <div class="data-point">
-          <span class="label">Avg. Monsoon Rain</span>
-          <span class="value" id="rainfall-value">--</span>
+          <span class="label">Avg. Rain</span
+          ><span class="value" id="rainfall-value">--</span>
         </div>
         <div class="data-point">
-          <span class="label">Crop Season</span>
-          <span class="value" id="season-value">--</span>
+          <span class="label">Season</span
+          ><span class="value" id="season-value">--</span>
         </div>
+      </div>
+
+      <div class="prediction-result">
+        <h2>Recommended Crop</h2>
+        <p class="crop-name" id="crop-prediction">--</p>
       </div>
 
       <div class="location-info">
@@ -126,9 +140,9 @@
         </p>
       </div>
 
-      <button id="receiveDataBtn">Get Latest Data</button>
+      <button id="receiveDataBtn">Get Crop Prediction</button>
     </div>
 
-    <script src="./main.js" type="module"></script>
+    <script src="./js/main.js" type="module"></script>
   </body>
 </html>
