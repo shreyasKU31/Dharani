@@ -64,7 +64,14 @@ export async function get5yrAvgWeather(lat, lon) {
 export async function getSensorData() {
   try {
     // 1. Wait for the fetch request to complete
-    const response = await fetch("http://10.184.166.151:5000/api/data");
+    const response = await fetch(
+      "https://unoral-antonia-intentionally.ngrok-free.dev/api/data",
+      {
+        headers: {
+          "ngrok-skip-browser-warning": "true",
+        },
+      }
+    );
 
     // 2. Check if the request was successful
     if (!response.ok) {

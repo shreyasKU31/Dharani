@@ -1,6 +1,7 @@
 import * as api from "./api.js";
 import * as ui from "./ui.js";
 import * as utils from "./utils.js";
+import { speakInKannada } from "./speech.js";
 
 async function handleGetPrediction() {
   try {
@@ -39,22 +40,37 @@ async function handleGetPrediction() {
     ui.updateStatus("Asking AI model for prediction...");
 
     // This object's keys now EXACTLY match your requirements
+    // const modelPayload = {
+    //   Season: displayData.season,
+    //   "N (kg/ha)": displayData.n,
+    //   "P (kg/ha)": displayData.p,
+    //   "K (kg/ha)": displayData.k,
+    //   pH: 7,
+    //   "Moisture (%)": displayData.moisture,
+    //   "Temp (°C)": displayData.temperature,
+    //   "Rainfall (mm)": displayData.rainfall,
+    //   "Humidity (%)": displayData.humidity,
+    // };
     const modelPayload = {
-      Season: displayData.season,
-      "N (kg/ha)": 57, //displayData.n
-      "P (kg/ha)": 48, //displayData.p
-      "K (kg/ha)": displayData.k, //displayData.k
-      pH: 7,
-      "Moisture (%)": displayData.moisture,
-      "Temp (°C)": displayData.temperature,
-      "Rainfall (mm)": displayData.rainfall,
-      "Humidity (%)": displayData.humidity,
+      Season: "Kharif",
+      "N (kg/ha)": 145,
+      "P (kg/ha)": 70,
+      "K (kg/ha)": 69,
+      pH: 7.5,
+      "Moisture (%)": 77,
+      "Temp (°C)": 33,
+      "Rainfall (mm)": 966,
+      "Humidity (%)": 65,
     };
 
     console.log(modelPayload);
 
     const predictionResult = await api.getAIPrediction(modelPayload);
-    ui.updatePrediction(predictionResult.best_crop);
+
+    const cropName = predictionResult.best_crop;
+    ui.updatePrediction(cropName); // Update the text on the screen
+    speakInKannada(cropName);
+
     ui.updateStatus("Success! Prediction complete.");
   } catch (error) {
     console.error("An error occurred:", error);
