@@ -5,6 +5,7 @@ export function updateDisplay(data) {
   $("#p-value").textContent = data.p;
   $("#k-value").textContent = data.k;
   $("#ph-value").textContent = data.pH;
+  $("#mois-value").textContent = data.moisture;
   $("#humidity-value").textContent = `${data.humidity}%`; // Add unit
   $("#temp-value").textContent = `${data.temperature}°C`; // Add unit
   $("#rainfall-value").textContent = `${data.rainfall} mm`; // Add unit

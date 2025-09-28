@@ -40,28 +40,28 @@ async function handleGetPrediction() {
     ui.updateStatus("Asking AI model for prediction...");
 
     // This object's keys now EXACTLY match your requirements
-    // const modelPayload = {
-    //   Season: displayData.season,
-    //   "N (kg/ha)": displayData.n,
-    //   "P (kg/ha)": displayData.p,
-    //   "K (kg/ha)": displayData.k,
-    //   pH: 7,
-    //   "Moisture (%)": displayData.moisture,
-    //   "Temp (°C)": displayData.temperature,
-    //   "Rainfall (mm)": displayData.rainfall,
-    //   "Humidity (%)": displayData.humidity,
-    // };
     const modelPayload = {
-      Season: "Kharif",
-      "N (kg/ha)": 145,
-      "P (kg/ha)": 70,
-      "K (kg/ha)": 69,
-      pH: 7.5,
-      "Moisture (%)": 77,
-      "Temp (°C)": 33,
-      "Rainfall (mm)": 966,
-      "Humidity (%)": 65,
+      Season: displayData.season,
+      "N (kg/ha)": displayData.n,
+      "P (kg/ha)": displayData.p,
+      "K (kg/ha)": displayData.k,
+      pH: 7,
+      "Moisture (%)": displayData.moisture,
+      "Temp (°C)": displayData.temperature,
+      "Rainfall (mm)": displayData.rainfall,
+      "Humidity (%)": displayData.humidity,
     };
+    // const modelPayload = {
+    //   Season: "Kharif",
+    //   "N (kg/ha)": 145,
+    //   "P (kg/ha)": 70,
+    //   "K (kg/ha)": 69,
+    //   pH: 7.5,
+    //   "Moisture (%)": 77,
+    //   "Temp (°C)": 33,
+    //   "Rainfall (mm)": 966,
+    //   "Humidity (%)": 65,
+    // };
 
     console.log(modelPayload);
 

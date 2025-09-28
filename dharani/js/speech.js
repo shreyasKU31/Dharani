@@ -13,7 +13,7 @@ export async function speakInKannada(text) {
     const response = await fetch(TTS_FUNCTION_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ text: text }),
+      body: JSON.stringify({ text: `The best crop for your land is ${text}` }),
     });
 
     if (!response.ok) {
